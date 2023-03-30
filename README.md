@@ -12,3 +12,11 @@ display (JavaScript)
 
 ## CV
 cv
+
+## Responsibility
+CV :Sebastian Gillman, Catalin Stretcu, Issa Bqain
+Gestures: Igor Bodnar, Igor Silin 
+Navigation:  Anqi Qiu, Yingkai Yang, Yinglong Liang, Pelin Ulusoy, Zhaoyu Wu
+NLP:  Shifan Chu, Faris Al-Kayssi, Yingjie Qin
+Display: Timothy Moores
+Speech to text: Oskar Mason
