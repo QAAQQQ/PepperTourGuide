@@ -9,7 +9,7 @@ from pyzbar.pyzbar import decode as qr_decode
 
 def dump_json(object, filename):
   with open(filename, 'w') as f:
-    f.write(str(json.dumps(object).encode('utf-8')))
+    json.dump(object, f)
 
 def qr_decoder(img):
     try:
@@ -111,6 +111,7 @@ with depthai.Device(pipeline) as device:
         normVals[::2] = frame.shape[1]
         return (np.clip(np.array(bbox), 0, 1) * normVals).astype(int)
 
+    print("Running CV...")
     # Main on-device application loop
     while True:
         # Get objects from queues
@@ -165,11 +166,12 @@ with depthai.Device(pipeline) as device:
             cv2.putText(frame, text_yolo, (5, 15), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
             cv2.putText(frame, text_qr, (5, 40), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
 
-            # Show frames on screen using OpenCV
-            cv2.imshow("preview", frame)
-            
-            detection_filename = "hcrcv_detections.json"
+            #Show frames on screen using OpenCV
+            #cv2.imshow("preview", frame)
+
+            detection_filename = "/home/pi/hcrcv/yolo-qr/hcrcv_detections.json"
             dump_json(detection_dict, detection_filename)
-        # Press Q to close
+
+	# Press Q to close
         if cv2.waitKey(1) == ord('q'):
             break

@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+
+import rospy
+from std_msgs.msg import Int32
+import json
+import time
+import sys
+import os
+
+class FloorPublisher:
+    def __init__(self):
+        rospy.init_node('floor_publisher')
+        self.floor_pub = rospy.Publisher('/current_floor', Int32, queue_size=10)
+        self.rate = rospy.Rate(0.5) # publish once per two second
+        self.file_path = "/home/pi/hcrcv/yolo-qr/hcrcv_detections.json" # replace with your own file path
+        self.data = None
+        self.load_json_data()
+        self.previous_floor = None
+        self.floor = 0
+        self.run()
+
+    def load_json_data(self):
+        self.data = json.load(open(self.file_path))
+        
+    def is_valid_floor(self, raw_floor):
+        return 'floor-' in raw_floor
+    
+    def strip_floor(self, floor):
+        return floor.strip('floor-')
+
+    def run(self):
+        while not rospy.is_shutdown():
+            try:
+            	if int(time.time()) % 5 == 0:
+                	self.load_json_data()
+                	raw_floor = str(self.data['floor'])
+               		print(type(raw_floor))
+                	if self.is_valid_floor(raw_floor):
+                    		self.previous_floor = self.floor
+	                    		self.floor = strip_floor(raw_floor)
+                    		# os.system('python ~/catkin_ws/src/pepper-ros-navigation/src/pub_map.py '+ str(self.floor))
+                    		if self.previous_floor != self.floor:
+                        		self.floor_pub.publish(int(self.floor))
+                        		rospy.loginfo(rospy.get_caller_id() + 'The current floor number %s \n', str(self.floor))
+             except:
+		print("Caught exception!")
+	self.rate.sleep()
+        rospy.spin()
+
+if __name__ == '__main__':
+    try:
+        floor_publisher = FloorPublisher()
+    except rospy.ROSInterruptException:
+        pass
