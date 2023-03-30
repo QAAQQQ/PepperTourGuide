@@ -5,7 +5,8 @@ This is a gitub repo for the whole HCR course pepper tour guide project.
 Pepper-ros-navigation[ros package]. 
 
 ## NLP
-### Persona: Defines the specific response behaviour of the "text-davinci-003" model, shaping outputs to sound more like a tour guide in the EEE department, as well as characterising commands which will be passed to gesture and navigation sub-modules.
+
+* Persona: Defines the specific response behaviour of the "text-davinci-003" model, shaping outputs to sound more like a tour guide in the EEE department, as well as characterising commands which will be passed to gesture and navigation sub-modules.
 
 ### Questions: Provide training examples for the model to enhance its response accuracy and fluency in EEE-specific scenarios.
 
