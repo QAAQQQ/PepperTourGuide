@@ -24,8 +24,9 @@ tasks.
 * ListenerRemote: Subscribe topic "speak", and make pepper speak with naoqi api.
 
 
-## Speech to text & Gestures
+## Speech-to-Text 
 
+## Gestures
 
 ## Display
 display (JavaScript)
